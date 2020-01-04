@@ -23,13 +23,15 @@ class Post
       file.puts(item)
     end
 
-    file.close
-  end
+      file.close
+    end
+
+
 
   def file_path
     current_path = File.dirname(__FILE__)
 
-    filename = @created_at.strftime("#{self.class.name}")__original__load__IRB_use_loader__.txt")
+    filename = @created_at.strftime("#{self.class.name}")_@Y-@m-@d_@H-@M-@S.txt")
 
      return current_path + "/" + file_name
   end
