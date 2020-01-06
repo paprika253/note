@@ -1,24 +1,30 @@
 class Link < Post
-  def initialize
-    super
+def initialize
+  super
 
-    @url = ''
-  end
+  @url = ''
+end
 
-  def read_from_console
-    puts "Введите ссылку:"
-    @url = STDIN.gets.chomp
+def read_from_console
 
-    puts "Что это за ссылка?"
-    @text = STDIN.gets.chomp
+  puts "Link:"
+  @url = STDIN.gets.chomp
 
+  puts "What about this link?"
+  @text = STDIN.gets.chomp
+end
 
-  end
+def save
 
-  def to_strings
-    time_string = @created_at.strftime("%Y.%m.%d, %H:%M")
+  file = File.new(file_path, "w:UTF-8")
+  time_string = @created_at.strftime("%Y.%m.%d, %H:%M")
+  file.puts(time_string + "\n\r")
 
-    return [@url, @text, time_string]
-  end
+  file.puts(@url)
+  file.puts(@text)
 
+  file.close
+
+  puts "Link was saved!"
+end
 end

@@ -1,5 +1,6 @@
 class Memo < Post
   def read_from_console
+    puts "I will save all what you write before \"end\"."
 
     line = nil
 
@@ -19,11 +20,11 @@ class Memo < Post
     file.puts(time_string + "\n\r")
 
     for item in @text do
-            file.puts(item)
+      file.puts(item)
     end
 
     file.close
 
-    puts "Ваша запись сохранена"
+    puts "I saved it!"
   end
 end

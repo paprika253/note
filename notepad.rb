@@ -1,37 +1,28 @@
- if (Gem.win_platform?)
+require_relative 'note.rb'
+require_relative 'memo.rb'
+require_relative 'link.rb'
+require_relative 'task.rb'
 
- Encoding.default_internal = __ENCODING__
- Encoding.default_external = Encoding.find(Encoding.locale_charmap)
+puts "Hello, I`m your notepad"
 
-[STDIN,STDOUT].each do |io|
-   io.set_encoding(Encoding.default_external, Encoding.default_internal)
+puts "What you want to write here?"
 
+choices = Post.post_types
 
-   require_relative 'note.rb'
-   require_relative 'memo.rb'
-   require_relative 'link.rb'
-   require_relative 'task.rb'
+choice = -1
 
-  puts "Привет, я твой блокнот!"
-
-  puts "Что хотите записать в блокнот?"
-
-  choices = Post.post_types
-
-  choice = -1
-
-  until choice >= 0 && choice < choices.size
-    choices.each_with_index do |type, index|
-      puts "\t#{index}. #{type}"
-    end
-    choice = gets.chomp.to_i
+until choice >= 0 && choice < choices.size
+  choices.each_with_index do |type, index|
+    puts "\t#{index}. #{type}"
   end
+  choice = gets.chomp.to_i
+end
 
-  entry = Post.create(choice)
+entry = Post.create(choice)
 
 
-  entry.read_from_console
+entry.read_from_console
 
-  entry.save
+entry.save
 
-  puts "saved!"
+puts "Saved!"

@@ -1,32 +1,33 @@
 require 'date'
-class Task < Post
 
+class Task < Post
   def initialize
     super
 
-    @due_date = Time.now
+    @due_date = ''
   end
 
   def read_from_console
-    puts "Что сделать?"
-
+    puts "What you need to do?"
     @text = STDIN.gets.chomp
 
-    puts "К какому числу это сделать? Укажите дату в формате ДД,ММ.ГГГГ"
-
+    puts "So where is your deadline?"
+    puts "Write date in format DD.MM.YYYY, example: 12.05.2003"
     input = STDIN.gets.chomp
 
-
     @due_date = Date.parse(input)
-
   end
 
-  def to_strings
+  def save
+    file = File.new(file_path, "w:UTF-8")
     time_string = @created_at.strftime("%Y.%m.%d, %H:%M")
+    file.puts(time_string + "\n\r")
 
-    deadline = "Крайний срок: #{@due_date}"
+    file.puts("Сделать до #{@due_date.strftime("%Y.%m.%d")}")
+    file.puts(@text)
 
-    return [deadline, @text, @due_date]
+    file.close
 
+    puts "Task was saved!"
   end
-end
+  end
